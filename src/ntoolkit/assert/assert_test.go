@@ -1,7 +1,7 @@
 package assert_test
 
 import "testing"
-import "toolkit/assert"
+import "ntoolkit/assert"
 
 func TestNew(T *testing.T) {
 	assert.New(T)
