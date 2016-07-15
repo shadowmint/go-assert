@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/shadowmint/go-assert",
   "scripts": {
+    "test": "GOPATH=`pwd` go test ./src/ntoolkit/...",
     "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
