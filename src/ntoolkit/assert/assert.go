@@ -11,6 +11,12 @@ type T struct {
 // Test executes the given testcase passing a new testing
 // instance into it.
 func Test(t *testing.T, testcase func(*T)) {
+	defer func() {
+		r := recover()
+		if r != nil {
+			t.Fail()
+		}
+	}()
 	tester := New(t)
 	testcase(tester)
 	tester.Commit()
