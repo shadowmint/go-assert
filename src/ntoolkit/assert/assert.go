@@ -1,6 +1,10 @@
 package assert
 
-import "testing"
+import (
+	"testing"
+	"runtime/debug"
+	"fmt"
+)
 
 // T is a light weight testing helper
 type T struct {
@@ -14,6 +18,8 @@ func Test(t *testing.T, testcase func(*T)) {
 	defer func() {
 		r := recover()
 		if r != nil {
+			fmt.Printf("Panic running test: %s\n", r)
+			debug.PrintStack()
 			t.Fail()
 		}
 	}()
