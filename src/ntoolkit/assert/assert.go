@@ -20,6 +20,7 @@ func Test(t *testing.T, testcase func(*T)) {
 		if r != nil {
 			fmt.Printf("Panic running test: %s\n", r)
 			debug.PrintStack()
+      fmt.Printf("\n")
 			t.Fail()
 		}
 	}()
@@ -51,10 +52,16 @@ func (T *T) Commit() {
 func (T *T) Assert(truth bool) {
 	if !truth {
 		T.failed = true
+    fmt.Printf("Assertion failed:\n")
+    debug.PrintStack()
+    fmt.Printf("\n")
 	}
 }
 
 // Unreachable fails the test if it gets hit.
 func (T *T) Unreachable() {
 	T.failed = true
+  fmt.Printf("Unreachable bound hit:\n")
+  debug.PrintStack()
+  fmt.Printf("\n")
 }
