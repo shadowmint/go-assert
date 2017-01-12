@@ -6,7 +6,7 @@ var ncp = require('ncp');
 var ns = 'ntoolkit';
 var src = path.join(__dirname, '..', 'src', ns);
 var dir = path.join(__dirname, '..', '..', '..', 'src', 'vendor', ns);
-var ismodule = __dirname.split(path.sep).filter(function(i) { return i == 'node_modules'; });
+var ismodule = __dirname.split(path.sep).filter(function(i) { return i == 'node_modules'; }).length > 0;
 
 // Create folder if missing
 if (ismodule) {
