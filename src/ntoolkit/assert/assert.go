@@ -1,6 +1,10 @@
 package assert
 
-import "testing"
+import (
+	"testing"
+	"runtime/debug"
+	"fmt"
+)
 
 // T is a light weight testing helper
 type T struct {
@@ -11,6 +15,15 @@ type T struct {
 // Test executes the given testcase passing a new testing
 // instance into it.
 func Test(t *testing.T, testcase func(*T)) {
+	defer func() {
+		r := recover()
+		if r != nil {
+			fmt.Printf("Panic running test: %s\n", r)
+			debug.PrintStack()
+      fmt.Printf("\n")
+			t.Fail()
+		}
+	}()
 	tester := New(t)
 	testcase(tester)
 	tester.Commit()
@@ -39,10 +52,16 @@ func (T *T) Commit() {
 func (T *T) Assert(truth bool) {
 	if !truth {
 		T.failed = true
+    fmt.Printf("Assertion failed:\n")
+    debug.PrintStack()
+    fmt.Printf("\n")
 	}
 }
 
 // Unreachable fails the test if it gets hit.
 func (T *T) Unreachable() {
 	T.failed = true
+  fmt.Printf("Unreachable bound hit:\n")
+  debug.PrintStack()
+  fmt.Printf("\n")
 }
